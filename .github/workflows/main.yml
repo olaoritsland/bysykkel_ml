@@ -9,7 +9,6 @@ jobs:
     - uses: actions/checkout@master
     - name: Create local changes
       env:
-        HDIR_API_KEY: ${{ secrets.HDIR_API_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         Rscript -e 'source("code/update_model.R")'
