@@ -1,0 +1,25 @@
+on:
+  schedule:
+    - cron:  '50 2,10,14,21 * * *'
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    container: asachet/rocker-tidymodels
+    steps:
+    - uses: actions/checkout@master
+    - name: Create local changes
+      env:
+        HDIR_API_KEY: ${{ secrets.HDIR_API_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        Rscript -e 'source("code/update_model.R")'
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Scheduled model update" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
