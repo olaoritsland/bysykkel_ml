@@ -13,7 +13,7 @@ train <- training(split)
 test <- testing(split)
 
 # Create the recipe that specifies which operations we want to do.
-rec <- recipe(duration ~ ., data = train) %>%
+rec <- recipe(duration ~ ., data = train %>% head(1)) %>%
   step_mutate(started_at = lubridate::as_date(started_at)) %>% 
   step_date(started_at) %>%
   step_mutate(distance = round(geosphere::distCosine(
@@ -24,7 +24,7 @@ rec <- recipe(duration ~ ., data = train) %>%
   step_holiday(started_at)
 
 # Train the recipe on the training set.
-prep_rec <- prep(rec, training = train)
+prep_rec <- prep(rec, training = train, retain = FALSE)
 
 # Bake the data (i.e. apply the recipe and get the final datasets)
 mod_train <- bake(prep_rec, new_data = train)
@@ -47,6 +47,7 @@ model <- boost_tree(mode = "regression",
 
 # Save model
 readr::write_rds(model, "bysykkel_modell.rds")
+readr::write_rds(prep_rec, "bysykkel_recipe.rds")
 
 # Validate model
 mod_test <- mod_test %>% 
