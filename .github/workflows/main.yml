@@ -11,7 +11,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        Rscript -e 'source("code/update_model.R")'
+        Rscript -e 'source("update_model.R")'
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
