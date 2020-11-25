@@ -11,17 +11,23 @@ library(plumber)
 library(tidymodels)
 library(recipes)
 
-model <- read_rds("bysykkel_modell.rds")
-recipe <- read_rds("bysykkel_recipe.rds")
+model <- readr::read_rds(here::here("bysykkel_modell.rds"))
+recipe <- readr::read_rds(here::here("bysykkel_recipe.rds"))
 
 #* @apiTitle Predict duration
 #* Predict duration of a bike ride
 #* @param body JSON-body with data
 #* @post /predict
-function(body = "") {
-    df <- jsonlite::fromJSON(body)
-    df <- bake(recipe, new_data = df)
+function(req, res = NULL) {
+    df <- tibble::as_tibble(req$body)
+    #df <- bake(recipe, new_data = df)
     
-    pred <- predict(model, new_data = df) %>% pull()
+    pred <- predict(model, df)
     pred
+}
+
+#* @plumber
+function(pr) {
+    pr %>% 
+        pr_set_api_spec(yaml::read_yaml("openapi.yaml"))
 }

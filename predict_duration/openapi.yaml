@@ -1,0 +1,47 @@
+servers:
+  - url: ''
+openapi: 3.0.3
+info:
+  description: API Description
+  title: Bike Predictions
+  version: 1.0.0
+paths:
+  /predict:
+    post:
+      summary: 'Predict duration'
+      responses:
+        default:
+          description: Default response.
+      parameters: []
+      requestBody:
+        description: Bike data
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+               start_station_id:
+                type: integer
+                title: "Start station ID"
+                example: 104
+               end_station_id:
+                type: integer
+                title: "End station ID"
+                example: 104
+               hour_started:
+                type: integer
+                title: "Hour the bike ride started"
+                example: 10
+               distance:
+                type: integer
+                title: "Distance in meters"
+                example: 3200
+               started_at_dow:
+                type: integer
+                title: "Day of week bike ride started"
+                example: "Mon"
+               started_at_month:
+                type: integer
+                title: "Month bike ride started"
+                example: "Jun"

@@ -31,8 +31,9 @@ mod_train <- bake(prep_rec, new_data = train)
 mod_test <- bake(prep_rec, new_data = test)
 
 model <- boost_tree(mode = "regression", 
-                    learn_rate = 0.3,
-                    tree_depth = 12, 
+                    trees = 50,
+                    learn_rate = 0.05,
+                    tree_depth = 8, 
                     min_n = 1, 
                     sample_size = 0.8) %>%
   set_engine("xgboost") %>%
