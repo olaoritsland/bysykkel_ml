@@ -7,7 +7,7 @@
 #    https://www.rplumber.io/
 #
 
-library(plumber)
+# library(plumber)
 library(tidymodels)
 library(recipes)
 
@@ -20,7 +20,7 @@ recipe <- readr::read_rds(here::here("bysykkel_recipe.rds"))
 #* @post /predict
 function(req, res = NULL) {
     df <- tibble::as_tibble(req$body)
-    #df <- bake(recipe, new_data = df)
+    # df <- bake(recipe, new_data = df)
     
     pred <- predict(model, df)
     pred
@@ -28,6 +28,11 @@ function(req, res = NULL) {
 
 #* @plumber
 function(pr) {
-    pr %>% 
+    pr %>%
         pr_set_api_spec(yaml::read_yaml("openapi.yaml"))
+}
+
+#* @get /okay
+function() {
+    "I'm alive!"
 }
