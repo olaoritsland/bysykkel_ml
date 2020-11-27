@@ -24,24 +24,17 @@ paths:
                start_station_id:
                 type: integer
                 title: "Start station ID"
-                example: 104
+                example: 49
                end_station_id:
                 type: integer
                 title: "End station ID"
-                example: 104
+                example: 34
                hour_started:
                 type: integer
                 title: "Hour the bike ride started"
                 example: 10
-               distance:
+               started_at:
                 type: integer
-                title: "Distance in meters"
-                example: 3200
-               started_at_dow:
-                type: integer
-                title: "Day of week bike ride started"
-                example: "Mon"
-               started_at_month:
-                type: integer
-                title: "Month bike ride started"
-                example: "Jun"
+                title: "Date of the trip"
+                example: "2020-11-01"
+               

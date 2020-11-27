@@ -6,29 +6,22 @@ library(lubridate)
 
 # Collect data from june to current month
 cur_month <- lubridate::month(today())
-bergen_trips <- map_dfr(6:cur_month, fread_trips_data, year = 2020, city = "Bergen")
+bergen_trips <- map_dfr(9:cur_month, fread_trips_data, year = 2020, city = "Bergen")
 
-split <- initial_split(bergen_trips)
+trips <- bergen_trips %>% 
+  mutate(hour_started = as.factor(hour(started_at))) %>% 
+  mutate(started_at = as_date(started_at)) %>% 
+  mutate(
+    distance = round(geosphere::distCosine(
+      cbind(start_station_longitude, start_station_latitude),
+      cbind(end_station_longitude, end_station_latitude))),
+    started_at_dow = as.factor(wday(started_at)), 
+    start_station_id = as.factor(start_station_id), 
+    end_station_id = as.factor(end_station_id))
+
+split <- initial_split(trips)
 train <- training(split)
 test <- testing(split)
-
-# Create the recipe that specifies which operations we want to do.
-rec <- recipe(duration ~ ., data = train %>% head(1)) %>%
-  step_mutate(started_at = lubridate::as_date(started_at)) %>% 
-  step_date(started_at) %>%
-  step_mutate(distance = round(geosphere::distCosine(
-    cbind(start_station_longitude, start_station_latitude),
-    cbind(end_station_longitude, end_station_latitude)
-  ))) %>% 
-  step_mutate(hour_started = hour(started_at)) %>%
-  step_holiday(started_at)
-
-# Train the recipe on the training set.
-prep_rec <- prep(rec, training = train, retain = FALSE)
-
-# Bake the data (i.e. apply the recipe and get the final datasets)
-mod_train <- bake(prep_rec, new_data = train)
-mod_test <- bake(prep_rec, new_data = test)
 
 model <- boost_tree(mode = "regression", 
                     trees = 50,
@@ -42,13 +35,12 @@ model <- boost_tree(mode = "regression",
       + end_station_id
       + hour_started
       + distance
-      + started_at_dow
-      + started_at_month,
-      data = mod_train)
+      + started_at_dow,
+      data = train)
 
 # Save model
-readr::write_rds(model, "bysykkel_modell.rds")
-readr::write_rds(prep_rec, "bysykkel_recipe.rds")
+readr::write_rds(model, "predict_duration/bysykkel_modell.rds")
+
 
 # Validate model
 mod_test <- mod_test %>% 
