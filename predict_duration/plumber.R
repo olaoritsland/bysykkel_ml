@@ -11,8 +11,8 @@
 library(tidymodels)
 library(recipes)
 
-model <- readr::read_rds(here::here("bysykkel_modell.rds"))
-recipe <- readr::read_rds(here::here("bysykkel_recipe.rds"))
+model <- readr::read_rds("./bysykkel_modell.rds")
+recipe <- readr::read_rds("./bysykkel_recipe.rds")
 
 #* @apiTitle Predict duration
 #* Predict duration of a bike ride
@@ -26,11 +26,11 @@ function(req, res = NULL) {
     pred
 }
 
-#* @plumber
-function(pr) {
-    pr %>%
-        pr_set_api_spec(yaml::read_yaml("openapi.yaml"))
-}
+# #* @plumber
+# function(pr) {
+#     pr %>%
+#         pr_set_api_spec(yaml::read_yaml("openapi.yaml"))
+# }
 
 #* @get /okay
 function() {
