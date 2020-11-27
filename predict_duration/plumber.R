@@ -8,23 +8,23 @@
 #
 
 # library(plumber)
-library(tidymodels)
-library(recipes)
-
-model <- readr::read_rds("./bysykkel_modell.rds")
-recipe <- readr::read_rds("./bysykkel_recipe.rds")
-
-#* @apiTitle Predict duration
-#* Predict duration of a bike ride
-#* @param body JSON-body with data
-#* @post /predict
-function(req, res = NULL) {
-    df <- tibble::as_tibble(req$body)
-    # df <- bake(recipe, new_data = df)
-    
-    pred <- predict(model, df)
-    pred
-}
+# library(tidymodels)
+# library(recipes)
+# 
+# model <- readr::read_rds("./bysykkel_modell.rds")
+# recipe <- readr::read_rds("./bysykkel_recipe.rds")
+# 
+# #* @apiTitle Predict duration
+# #* Predict duration of a bike ride
+# #* @param body JSON-body with data
+# #* @post /predict
+# function(req, res = NULL) {
+#     df <- tibble::as_tibble(req$body)
+#     # df <- bake(recipe, new_data = df)
+#     
+#     pred <- predict(model, df)
+#     pred
+# }
 
 # #* @plumber
 # function(pr) {

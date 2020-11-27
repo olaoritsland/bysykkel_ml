@@ -1,5 +1,5 @@
 
-source("update_model.R")
+# source("update_model.R")
 
 library(plumber)
 
