@@ -4,7 +4,7 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    container: asachet/rocker-tidymodels
+    container: mortensen0/base-bysykkel:v1
     steps:
     - uses: actions/checkout@master
     - name: Create local changes

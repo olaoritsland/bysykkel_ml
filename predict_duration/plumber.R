@@ -7,13 +7,14 @@
 #    https://www.rplumber.io/
 #
 
-# library(plumber)
-# library(tidymodels)
-# library(recipes)
-# 
-# model <- readr::read_rds("bysykkel_modell.rds")
-# stations <- readr::read_rds("stations.RDS")
-# 
+library(plumber)
+library(tidymodels)
+library(recipes)
+library(lubridate)
+
+model <- readr::read_rds("bysykkel_modell.rds")
+stations <- readr::read_rds("stations.RDS")
+
 #* @apiTitle Predict duration
 #* Predict duration of a bike ride
 #* @param body JSON-body with data
@@ -39,6 +40,8 @@ function(req, res = NULL) {
     pred <- predict(model, df1)
     pred
 }
+
+# lag nytt api som gir stasjonsid
 
 #* @apiTitle Predict duration
 #* Predict duration of a bike ride

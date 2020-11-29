@@ -43,7 +43,7 @@ readr::write_rds(model, "predict_duration/bysykkel_modell.rds")
 
 
 # Validate model
-mod_test <- mod_test %>% 
+mod_test <- test %>% 
   mutate(pred = predict(model, new_data = .) %>% pull())
 
 multi_metric <- yardstick::metric_set(rsq, ccc, mape, rmse)
