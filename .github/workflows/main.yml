@@ -5,14 +5,13 @@ on:
     #- cron:  '0 0 * * *'
 jobs:
   job1:
-    runs-on: ubuntu-latest
-    # container: mortensen0/base-bysykkel:v2
+    runs-on: ubuntu-latest    # container: mortensen0/base-bysykkel:v2
     steps:
     - uses: actions/checkout@master
     - uses: r-lib/actions/setup-r@v1
     - name: Create local changes
       run: |
-        Rscript -e 'install.packages("tidyverse", "tidymodels", "xgboost", "geosphere", "lubridate", "bysykkel")'
+        Rscript -e 'install.packages(c("tidyverse", "tidymodels", "xgboost", "geosphere", "lubridate", "bysykkel"))'
         Rscript -e 'source("update_model.R")'
       shell: Rscript {0}
     - name: Commit files
