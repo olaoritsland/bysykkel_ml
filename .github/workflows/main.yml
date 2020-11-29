@@ -9,8 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Create local changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         RUN R -e "source('update_model.R')"
     - name: Commit files
