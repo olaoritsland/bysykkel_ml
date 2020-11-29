@@ -5,12 +5,14 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    container: mortensen0/base-bysykkel:v1
+    # container: mortensen0/base-bysykkel:v2
     steps:
     - uses: actions/checkout@master
     - name: Create local changes
       run: |
-        RUN R -e "source('update_model.R')"
+        install.packages("tidyverse", "tidymodels", "xgboost", "geosphere", "lubridate", "bysykkel")
+        source('update_model.R')
+      shell: Rscript {0}
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
