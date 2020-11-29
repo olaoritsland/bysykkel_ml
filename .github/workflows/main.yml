@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Create local changes
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PAT }}
       run: |
         Rscript -e 'source("update_model.R")'
     - name: Commit files
@@ -21,4 +21,4 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PAT }}
