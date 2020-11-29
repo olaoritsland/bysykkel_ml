@@ -9,7 +9,6 @@ jobs:
     container: mortensen0/base-bysykkel:v2
     steps:
     - uses: actions/checkout@master
-    - uses: r-lib/actions/setup-r@v1
     - name: Create local changes
       run: |
         Rscript -e 'source("update_model.R")'
