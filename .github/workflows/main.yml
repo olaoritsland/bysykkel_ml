@@ -12,8 +12,8 @@ jobs:
     - uses: r-lib/actions/setup-r@v1
     - name: Create local changes
       run: |
-        install.packages("tidyverse", "tidymodels", "xgboost", "geosphere", "lubridate", "bysykkel")
-        source('update_model.R')
+        Rscript -e 'install.packages("tidyverse", "tidymodels", "xgboost", "geosphere", "lubridate", "bysykkel")'
+        Rscript -e 'source("update_model.R")'
       shell: Rscript {0}
     - name: Commit files
       run: |
