@@ -7,7 +7,6 @@
 #    https://www.rplumber.io/
 #
 
-library(plumber)
 library(tidymodels)
 library(recipes)
 library(lubridate)

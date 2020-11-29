@@ -1,6 +1,7 @@
 on:
-  schedule:
-    - cron:  '0 0 * * *'
+  [push]
+  #schedule:
+    #- cron:  '0 0 * * *'
 jobs:
   job1:
     runs-on: ubuntu-latest
@@ -9,16 +10,16 @@ jobs:
     - uses: actions/checkout@master
     - name: Create local changes
       env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        Rscript -e 'source("update_model.R")'
+        RUN R -e "source('update_model.R')"
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
-        git commit -m "Scheduled model update" -a
+        git commit -m "Scheduled model update"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.PAT }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
