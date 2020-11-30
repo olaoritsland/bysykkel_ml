@@ -46,12 +46,21 @@ fix_features <- function(data) {
 #* @param body JSON-body with data
 #* @post /predict
 function(req, res = NULL) {
-    input <- tibble::as_tibble(req$body)
-    
+    input <- tibble::as_tibble(req$body)    
     df <- fix_features(input)
-
     pred <- predict(model, df)
     pred
+}
+
+#* @plumber
+function(pr) {
+    pr %>%
+        pr_set_api_spec(yaml::read_yaml("openapi.yaml"))
+}
+
+#* @get /okay
+function() {
+    "I'm alive!"
 }
 
 # Vi kan også lage et GET-API, som er enklere å teste fra browseren
@@ -80,13 +89,3 @@ function(start_station_id, end_station_id, hour_started, started_at) {
     pred
 }
 
-#* @plumber
-function(pr) {
-    pr %>%
-        pr_set_api_spec(yaml::read_yaml("openapi.yaml"))
-}
-
-#* @get /okay
-function() {
-    "I'm alive!"
-}
