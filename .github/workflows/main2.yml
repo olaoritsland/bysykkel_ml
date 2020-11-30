@@ -1,3 +1,4 @@
+
 on: [push]
 name: Linux_Container_Workflow
 
@@ -21,7 +22,7 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/bysykkel:${{ github.sha }}
+            docker build predict_duration/. -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/bysykkel:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/bysykkel:${{ github.sha }}
 
         - name: 'Deploy to Azure Container Instances'
@@ -35,3 +36,4 @@ jobs:
             registry-password: ${{ secrets.REGISTRY_PASSWORD }}
             name: aci-bysykkel
             location: 'north europe'
+

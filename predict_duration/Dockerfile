@@ -2,7 +2,7 @@
 FROM rocker/tidyverse
 
 # Installerer nødvendige pakker
-RUN R -e "install.packages(c('plumber', 'bysykkel', 'tidymodels', 'lubridate', 'geosphere', 'xgboost'))"
+RUN R -e "install.packages(c('plumber', 'tidymodels', 'lubridate', 'geosphere', 'xgboost'))"
 
 # copy everything from the current directory into the container
 # Kopier alt fra denne mappen til kontaineren
