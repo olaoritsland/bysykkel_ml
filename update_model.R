@@ -5,7 +5,7 @@ library(tidymodels)
 library(lubridate)
 
 # Collect data from june to current month
-cur_month <- lubridate::month(today())
+cur_month <- lubridate::month(today() - 1)
 bergen_trips <- map_dfr(9:cur_month, fread_trips_data, year = 2020, city = "Bergen")
 
 trips <- bergen_trips %>% 
