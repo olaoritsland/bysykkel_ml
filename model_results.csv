@@ -1,5 +1,5 @@
 .metric,.estimator,.estimate
-rsq,standard,0.17866255048864627
-ccc,standard,0.2851737772209874
-mape,standard,42.04417040160419
-rmse,standard,501.85142124204657
+rsq,standard,0.17037880429698324
+ccc,standard,0.27694296848680244
+mape,standard,40.92530515668125
+rmse,standard,514.5417831719328
